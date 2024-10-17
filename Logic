@@ -1,0 +1,23 @@
+import requests
+
+def get_conversion(base, target):
+    api_key = "6fa64fcb0089200f026a8b21"
+    url = f"https://v6.exchangerate-api.com/v6/{api_key}/pair/{base}/{target}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        return data['conversion_rate']
+    else:
+        return None
+
+def main():
+    
+    base_currency = input("What will be your base currency?\n").upper()
+    base_amount = float(input("Please enter amount?\n"))
+    target_currency = input("What would you like to convert the currency to?\n").upper()
+    conversion = get_conversion(base_currency, target_currency)
+    converted_amount = round((base_amount * conversion), 2)
+
+    print(f"The converted amount is ${converted_amount}")
+    
+main()
